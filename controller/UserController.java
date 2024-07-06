@@ -71,7 +71,7 @@ public class UserController {
         return password.toString();
     }
 
-    public void loginUser() {
+    public boolean loginUser() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter username:");
@@ -80,7 +80,7 @@ public class UserController {
         User user = User.getUser(username);
         if (user == null) {
             System.out.println("Username doesn't exist!");
-            return;
+            return false;
         }
 
         System.out.println("Enter password:");
@@ -89,9 +89,11 @@ public class UserController {
         if (user.getPassword().equals(password)) {
             System.out.println("User logged in successfully!");
             user.setFailedLoginAttempts(0);
+            return true;
         } else {
             user.setFailedLoginAttempts(user.getFailedLoginAttempts() + 1);
             System.out.println("Password and Username don’t match! Try again in " + 5 * user.getFailedLoginAttempts() + " seconds.");
+            return false;
         }
     }
 

@@ -1,69 +1,76 @@
 package utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.User;
 import model.Card;
 import model.Player;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 
 public class FileManager {
-    private static final String USER_FILE_PATH = "users.dat";
-    private static final String CARD_FILE_PATH = "cards.dat";
-    private static final String PLAYER_FILE_PATH = "players.dat";
+    private static final String USER_FILE_PATH = "users.json";
+    private static final String CARD_FILE_PATH = "cards.json";
+    private static final String PLAYER_FILE_PATH = "players.json";
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    // Save all users to file
+    // Save all users to JSON file
     public static void saveUsers(HashMap<String, User> users) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(USER_FILE_PATH))) {
-            oos.writeObject(users);
+        try {
+            objectMapper.writeValue(new File(USER_FILE_PATH), users);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Load all users from file
+    // Load all users from JSON file
     public static HashMap<String, User> loadUsers() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(USER_FILE_PATH))) {
-            return (HashMap<String, User>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+        try {
+            return objectMapper.readValue(new File(USER_FILE_PATH), new TypeReference<HashMap<String, User>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
             return new HashMap<>();
         }
     }
 
-    // Save all cards to file
+    // Save all cards to JSON file
     public static void saveCards(List<Card> cards) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CARD_FILE_PATH))) {
-            oos.writeObject(cards);
+        try {
+            objectMapper.writeValue(new File(CARD_FILE_PATH), cards);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Load all cards from file
+    // Load all cards from JSON file
     public static List<Card> loadCards() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(CARD_FILE_PATH))) {
-            return (List<Card>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+        try {
+            return objectMapper.readValue(new File(CARD_FILE_PATH), new TypeReference<List<Card>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    // Save all players to file
+    // Save all players to JSON file
     public static void savePlayers(List<Player> players) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PLAYER_FILE_PATH))) {
-            oos.writeObject(players);
+        try {
+            objectMapper.writeValue(new File(PLAYER_FILE_PATH), players);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Load all players from file
+    // Load all players from JSON file
     public static List<Player> loadPlayers() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(PLAYER_FILE_PATH))) {
-            return (List<Player>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+        try {
+            return objectMapper.readValue(new File(PLAYER_FILE_PATH), new TypeReference<List<Player>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }

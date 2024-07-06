@@ -2,6 +2,7 @@ import controller.AdminController;
 import controller.UserController;
 import model.Admin;
 import model.MainMenu;
+import model.User;
 
 import java.util.Scanner;
 
@@ -23,8 +24,7 @@ public class Main {
             scanner.nextLine();  // Consume newline
             switch (choice) {
                 case 1:
-                    userController.loginUser();
-                    loggedIn = isLoggedIn(userController);
+                    loggedIn = userController.loginUser();
                     break;
                 case 2:
                     userController.registerUser();
@@ -95,10 +95,5 @@ public class Main {
     private static void displayLoginSignupMenu() {
         System.out.println("1. Log in");
         System.out.println("2. Sign up");
-    }
-
-    private static boolean isLoggedIn(UserController userController) {
-        // Add your logic here to determine if the user is successfully logged in
-        return true;  // Placeholder: Replace with actual login check
     }
 }

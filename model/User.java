@@ -14,7 +14,6 @@ public class User implements Serializable {
     private String email;
     private SecurityQuestion securityQuestion;
     private String securityAnswer;
-    private int failedLoginAttempts;
     private static HashMap<String, User> users = FileManager.loadUsers();
 
     public User(String username, String password, String nickname, String email, SecurityQuestion securityQuestion, String securityAnswer) {
@@ -24,11 +23,9 @@ public class User implements Serializable {
         this.email = email;
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
-        this.failedLoginAttempts = 0;
     }
 
     // Getters and Setters
-
 
     public String getUsername() {
         return username;
