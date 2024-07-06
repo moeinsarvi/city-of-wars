@@ -14,24 +14,24 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         boolean running = true;
+        boolean loggedIn = false;
 
         // Display login/signup menu
-        while (true) {
+        while (!loggedIn) {
             displayLoginSignupMenu();
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
             switch (choice) {
                 case 1:
                     userController.loginUser();
-                    if (isLoggedIn(userController)) {
-                        break;
-                    }
-                    continue; // Go back to login/signup menu if not logged in
+                    loggedIn = isLoggedIn(userController);
+                    break;
                 case 2:
                     userController.registerUser();
-                    continue; // Go back to login/signup menu after registration
+                    break;
                 default:
                     System.out.println("Invalid choice! Please select either 1 or 2.");
+                    break;
             }
         }
 

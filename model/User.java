@@ -1,8 +1,13 @@
 package model;
 
+import utils.FileManager;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String username;
     private String password;
     private String nickname;
@@ -10,7 +15,7 @@ public class User {
     private SecurityQuestion securityQuestion;
     private String securityAnswer;
     private int failedLoginAttempts;
-    private static HashMap<String, User> users = new HashMap<>();
+    private static HashMap<String, User> users = FileManager.loadUsers();
 
     public User(String username, String password, String nickname, String email, SecurityQuestion securityQuestion, String securityAnswer) {
         this.username = username;

@@ -2,7 +2,6 @@ package controller;
 
 import model.Admin;
 import model.Card;
-import model.Player;
 
 import java.util.Scanner;
 

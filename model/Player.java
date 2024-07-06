@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String username;
     private int level;
     private int hp;
@@ -28,6 +31,9 @@ public class Player {
         return cards;
     }
 
+    // Other getters and setters
+
+
     public String getUsername() {
         return username;
     }
@@ -35,5 +41,4 @@ public class Player {
     public int getLevel() {
         return level;
     }
-    // Other getters and setters
 }
