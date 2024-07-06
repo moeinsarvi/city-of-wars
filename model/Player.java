@@ -28,7 +28,7 @@ public class Player {
         return cards;
     }
 
-    public String getPlayername() {
+    public String getUsername() {
         return username;
     }
 

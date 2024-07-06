@@ -1,5 +1,7 @@
 package controller;
 
+import model.Admin;
+import model.Card;
 import model.User;
 import model.SecurityQuestion;
 import utils.FileManager;
@@ -8,6 +10,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class UserController {
+
+    private Admin admin = new Admin();
 
     public void registerUser() {
         Scanner scanner = new Scanner(System.in);
@@ -97,5 +101,56 @@ public class UserController {
         }
     }
 
-    // Implement methods for profile management like changePassword, changeEmail, etc.
+    public void adminOperations() {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+            System.out.println("Admin Menu:");
+            System.out.println("1. Add Card");
+            System.out.println("2. Edit Card");
+            System.out.println("3. Delete Card");
+            System.out.println("4. View All Players");
+            System.out.println("5. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter card details (name attack defense duration playerDamage upgradeLevel upgradeCost):");
+                    String cardDetails = scanner.nextLine();
+                    String[] parts = cardDetails.split(" ");
+                    Card newCard = new Card(parts[0], Integer.parseInt(parts[1]), Integer.parseInt(parts[2]),
+                            Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]),
+                            Integer.parseInt(parts[6]));
+                    admin.addCard(newCard);
+                    break;
+                case 2:
+                    System.out.println("Enter card details (name attack defense duration playerDamage upgradeLevel upgradeCost):");
+                    String editDetails = scanner.nextLine();
+                    String[] editParts = editDetails.split(" ");
+                    Card editCard = new Card(editParts[0], Integer.parseInt(editParts[1]), Integer.parseInt(editParts[2]),
+                            Integer.parseInt(editParts[3]), Integer.parseInt(editParts[4]), Integer.parseInt(editParts[5]),
+                            Integer.parseInt(editParts[6]));
+                    admin.editCard(editCard);
+                    break;
+                case 3:
+                    System.out.println("Enter card name to delete:");
+                    String cardName = scanner.nextLine();
+                    admin.deleteCard(cardName);
+                    break;
+                case 4:
+                    admin.viewAllPlayers().forEach(player -> {
+                        System.out.println("Player: " + player.getUsername() + ", Level: " + player.getLevel());
+                    });
+                    break;
+                case 5:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
+            }
+        }
+    }
 }
