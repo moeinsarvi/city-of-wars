@@ -28,5 +28,12 @@ public class Player {
         return cards;
     }
 
+    public String getPlayername() {
+        return username;
+    }
+
+    public int getLevel() {
+        return level;
+    }
     // Other getters and setters
 }

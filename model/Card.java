@@ -19,5 +19,9 @@ public class Card {
         this.upgradeCost = upgradeCost;
     }
 
+    public String getName() {
+        return name;
+    }
+
     // Getters and Setters
 }

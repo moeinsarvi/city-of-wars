@@ -24,7 +24,7 @@ public class AdminController {
 
     public void viewAllPlayers() {
         admin.viewAllPlayers().forEach(player -> {
-            System.out.println("Player: " + player.getUsername() + ", Level: " + player.getLevel());
+            System.out.println("Player: " + player.getPlayername() + ", Level: " + player.getLevel());
         });
     }
 }

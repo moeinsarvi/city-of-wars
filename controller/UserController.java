@@ -4,6 +4,7 @@ import model.User;
 import model.SecurityQuestion;
 import utils.FileManager;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class UserController {
@@ -19,15 +20,21 @@ public class UserController {
             return;
         }
 
-        System.out.println("Enter password:");
+        System.out.println("Enter password (or type 'random' for a random password):");
         String password = scanner.nextLine();
+        String confirmPassword = null;
 
-        System.out.println("Confirm password:");
-        String confirmPassword = scanner.nextLine();
+        if ("random".equalsIgnoreCase(password)) {
+            password = generateRandomPassword();
+            System.out.println("Your random password: " + password);
+        } else {
+            System.out.println("Confirm password:");
+            confirmPassword = scanner.nextLine();
 
-        if (!password.equals(confirmPassword)) {
-            System.out.println("Passwords do not match!");
-            return;
+            if (!password.equals(confirmPassword)) {
+                System.out.println("Passwords do not match!");
+                return;
+            }
         }
 
         System.out.println("Enter nickname:");
@@ -54,6 +61,16 @@ public class UserController {
         FileManager.saveUser(user);
 
         System.out.println("User created successfully.");
+    }
+
+    private String generateRandomPassword() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+        Random random = new Random();
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            password.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return password.toString();
     }
 
     public void loginUser() {
